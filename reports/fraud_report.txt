@@ -1,0 +1,6 @@
+Transaction{id=2, account='ACC12345', amount=9000.0, time='11:00'} → Duplicate Transaction
+Transaction{id=3, account='ACC54321', amount=12000.0, time='09:45'} → Amount > 10000
+Transaction{id=4, account='ACC77777', amount=300.0, time='16:15'} → Rapid Transactions
+Transaction{id=5, account='ACC77777', amount=400.0, time='16:16'} → Rapid Transactions
+Transaction{id=6, account='ACC77777', amount=500.0, time='16:19'} → Rapid Transactions
+Transaction{id=10, account='ACC12345', amount=8000.0, time='03:45'} → Night Transaction
