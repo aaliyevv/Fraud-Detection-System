@@ -16,3 +16,22 @@ public class Transaction<T> {
     public T getId() {
         return id; }
 
+    public String getAccountNumber() {
+        return accountNumber; }
+
+    public double getAmount() {
+        return amount; }
+
+    public String getTime() {
+        return time; }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", account='" + accountNumber + '\'' +
+                ", amount=" + amount +
+                ", time='" + time + '\'' +
+                '}';
+    }
+}
