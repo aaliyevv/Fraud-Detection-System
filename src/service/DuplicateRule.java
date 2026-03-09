@@ -14,3 +14,9 @@ public class DuplicateRule implements FraudRule {
         seen.add(key);
         return false;
     }
+
+    @Override
+    public String getRuleName() {
+        return "Duplicate Transaction";
+    }
+}
