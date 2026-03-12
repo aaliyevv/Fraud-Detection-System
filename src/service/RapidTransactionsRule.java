@@ -18,4 +18,35 @@ public class RapidTransactionsRule implements FraudRule {
         accountTransactions.putIfAbsent(acc, new ArrayList<>());
         List<Transaction<?>> transactions = accountTransactions.get(acc);
 
-        
+        // Find transactions in the last 5 minutes
+        List<Transaction<?>> recent = new ArrayList<>();
+        for (Transaction<?> t : transactions) {
+            LocalTime tTime = LocalTime.parse(t.getTime(), formatter);
+            long diffSec = Math.abs(currentTime.toSecondOfDay() - tTime.toSecondOfDay());
+            if (diffSec <= 300) { // 5 minutes = 300 seconds
+                recent.add(t);
+            }
+        }
+
+        // Add new operation also
+        recent.add(tx);
+        transactions.add(tx);
+
+        if (recent.size() >= 3) {
+            return recent; // all transactions in last 5 minutes is fraud
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean isFraud(Transaction<?> tx) {
+        // returns whether the current transaction is fraudulent or not.
+        return getFraudTransactions(tx).size() > 0;
+    }
+
+    @Override
+    public String getRuleName() {
+
+        return "Rapid Transactions";
+    }
+}
