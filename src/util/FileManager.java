@@ -28,3 +28,30 @@ public class FileManager {
                 } catch (NegativeAmountException | SuspiciousAccountException e) {
                     System.out.println("Fraud Exception: " + e.getMessage());
                 }
+
+                list.add(new Transaction<>(id, account, amount, time));
+            }
+        } catch (IOException e) {
+            System.out.println("File nor readable: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public static void writeFrauds(String filePath, Map<Transaction<?>, String> frauds) {
+        try {
+            File file = new File(filePath);
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists())
+                parentDir.mkdirs();
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+                for (Map.Entry<Transaction<?>, String> entry : frauds.entrySet()) {
+                    bw.write(entry.getKey() + " → " + entry.getValue());
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Typo error: " + e.getMessage());
+        }
+    }
+}
